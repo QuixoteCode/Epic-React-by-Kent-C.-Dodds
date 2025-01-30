@@ -10,14 +10,32 @@
 
   <script type="text/babel">
 
+    /*Without Extra Credits*/
+    /*
     const element = <div className="container">Hello World</div>
+    */
 
-    // 💰 there are a few subtle differences between JSX and HTML. One such
-    // difference is how you apply a class to an element in JSX is by using
-    // `className` rather than `class`!
-    // 📜 You can learn the differences between JSX and HTML syntax from the React docs here:
-    // https://react.dev/reference/react-dom/components/common
+    /*Extra Credits Number 1*/
+    /*
+    const className = 'container';
+    const children = 'Hello World';
+    const element = <div className={className}>{children}</div>
+    */
 
+    /*Extra Credits Number 2*/
+    function Element({className, children}) {
+      return (
+        <div className={className}>
+          {children}
+        </div>
+      )
+    }
+
+    const element = <Element
+      className='container'
+      children='Hello World'
+    />
+    
     ReactDOM.createRoot(document.getElementById('root')).render(element)
   </script>
 </body>
