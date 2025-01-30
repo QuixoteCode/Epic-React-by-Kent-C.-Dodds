@@ -1,0 +1,40 @@
+<!-- Intro to raw React APIs -->
+<!-- http://localhost:3000/isolated/exercise/02.html -->
+
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
+
+  <script type="module">
+    const rootElement = document.getElementById('root')
+
+    /*Without Extra Credits*/
+    /*
+    const reactElement = React.createElement('div', {
+      className: 'container',
+      children: 'Hello World',
+    })
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(reactElement);
+    */
+
+    /*Extra Credits*/
+    const helloReactElement = React.createElement('span', {}, 'Hello');
+
+    const worldReactElement = React.createElement('span', {}, 'World');
+
+    /*It works just as well:
+      const worldReactElement = React.createElement('span', null, 'World');
+    or:
+      const worldReactElement = React.createElement('span', {children: 'World'});
+    */
+
+    const reactElement = React.createElement('div', {className: 'container',}, helloReactElement, ' ', worldReactElement,);
+
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(reactElement);
+
+  </script>
+</body>
