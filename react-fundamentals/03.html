@@ -22,20 +22,12 @@
     const element = <div className={className}>{children}</div>
     */
 
-    /*Extra Credits Number 2*/
-    function Element({className, children}) {
-      return (
-        <div className={className}>
-          {children}
-        </div>
-      )
-    }
+    //Extra Credits Number 2
+    const children = 'Hello World';
+    const className = 'container';
+    const props = {children, className};
+    const element = <div {...props} />
 
-    const element = <Element
-      className='container'
-      children='Hello World'
-    />
-    
     ReactDOM.createRoot(document.getElementById('root')).render(element)
   </script>
 </body>
