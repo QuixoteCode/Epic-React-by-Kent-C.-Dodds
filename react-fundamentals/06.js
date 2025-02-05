@@ -3,36 +3,48 @@
 
 import * as React from 'react'
 
+//Without Extra Credits
+/*
 function UsernameForm({onSubmitUsername}) {
 
   function handleSubmit(event){
     event.preventDefault();
-    const valor = event.target.elements[0].value;
+    const valor = event.target.elements.nombreUsuario.value;
     onSubmitUsername(valor);
   }
   
-  // 🐨 add a submit event handler here (`handleSubmit`).
-  // 💰 Make sure to accept the `event` as an argument and call
-  // `event.preventDefault()` to prevent the default behavior of form submit
-  // events (which refreshes the page).
-  // 📜 https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
-  //
-  // 🐨 get the value from the username input (using whichever method
-  // you prefer from the options mentioned in the instructions)
-  // 💰 For example: event.target.elements[0].value
-  // 🐨 Call `onSubmitUsername` with the value of the input
-
-
-
-  // 🐨 add the onSubmit handler to the <form> below
-
-  // 🐨 make sure to associate the label to the input.
-  // to do so, set the value of 'htmlFor' prop of the label to the id of input
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Username:</label>
-        <input name="nombreUsuario" type="text" />
+        <label htmlFor="nombreUsuario">Username:</label>
+        <input id="nombreUsuario" type="text" />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+
+function App() {
+  const onSubmitUsername = username => alert(`You entered: ${username}`)
+  return <UsernameForm onSubmitUsername={onSubmitUsername} />
+}
+*/
+
+//Extra Credits Number 1
+//Copiado y pegado de lo ya hecho
+function UsernameForm({onSubmitUsername}) {
+
+  function handleSubmit(event){
+    event.preventDefault();
+    const valor = event.target.elements.nombreUsuario.value;
+    onSubmitUsername(valor);
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="nombreUsuario">Username:</label>
+        <input id="nombreUsuario" type="text" />
       </div>
       <button type="submit">Submit</button>
     </form>
