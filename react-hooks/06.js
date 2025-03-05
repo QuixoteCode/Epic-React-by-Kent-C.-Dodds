@@ -459,6 +459,7 @@ function App() {
 */
 
 //Extra Credits Number 6
+/*
 import {
   fetchPokemon,
   PokemonInfoFallback,
@@ -530,6 +531,181 @@ function App() {
       <hr />
       <div className="pokemon-info">
         <ErrorBoundary key={pokemonName} FallbackComponent={ErrorFallback}>
+          <PokemonInfo pokemonName={pokemonName} />
+        </ErrorBoundary>
+      </div>
+    </div>
+  )
+}
+*/
+
+//Extra Credits Number 7
+/*
+import {
+  fetchPokemon,
+  PokemonInfoFallback,
+  PokemonDataView,
+  PokemonForm,
+} from '../pokemon'
+
+import sadFace from './sad-face.png'
+
+import { ErrorBoundary } from "react-error-boundary"
+
+function PokemonInfo({pokemonName}) {
+  const [state, setState] = React.useState({
+    pokemon: pokemonName ? 'pending' : 'idle',
+    error: null,
+    status: 'idle',
+  })
+  const {pokemon, error, status} = state
+
+  React.useEffect(() => {
+    if (!pokemonName) {
+      return
+    }
+    setState({status: 'pending'})
+    fetchPokemon(pokemonName).then(
+      pokemon => {
+        setState({pokemon, status: 'resolved'})
+      },
+      error => {
+        setState({error, status: 'rejected'})
+      },
+    )
+  }, [pokemonName])
+
+  if (status === 'rejected') {
+    // this will be handled by our error boundary
+    throw error
+  } else if (status === 'idle') {
+    return 'Submit a pokemon'
+  } else if (status === 'pending') {
+    return <PokemonInfoFallback name={pokemonName} />
+  } else if (status === 'resolved') {
+    return <PokemonDataView pokemon={pokemon} />
+  }
+
+  throw new Error('This should be impossible!')
+}
+
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      There was an error:{' '}
+      <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
+      <img src={sadFace} alt="sad face" />
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  )
+}
+
+function App() {
+  const [pokemonName, setPokemonName] = React.useState('')
+
+  function handleSubmit(newPokemonName) {
+    setPokemonName(newPokemonName)
+  }
+
+  function handleReset(){
+    setPokemonName('')
+  }
+
+  return (
+    <div className="pokemon-info-app">
+      <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
+      <hr />
+      <div className="pokemon-info">
+        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={handleReset}>
+          <PokemonInfo pokemonName={pokemonName} />
+        </ErrorBoundary>
+      </div>
+    </div>
+  )
+}
+*/
+
+//Extra Credits Number 8
+import {
+  fetchPokemon,
+  PokemonInfoFallback,
+  PokemonDataView,
+  PokemonForm,
+} from '../pokemon'
+
+import sadFace from './sad-face.png'
+
+import {ErrorBoundary} from 'react-error-boundary'
+
+function PokemonInfo({pokemonName}) {
+  const [state, setState] = React.useState({
+    pokemon: pokemonName ? 'pending' : 'idle',
+    error: null,
+    status: 'idle',
+  })
+  const {pokemon, error, status} = state
+
+  React.useEffect(() => {
+    if (!pokemonName) {
+      return
+    }
+    setState({status: 'pending'})
+    fetchPokemon(pokemonName).then(
+      pokemon => {
+        setState({pokemon, status: 'resolved'})
+      },
+      error => {
+        setState({error, status: 'rejected'})
+      },
+    )
+  }, [pokemonName])
+
+  if (status === 'rejected') {
+    // this will be handled by our error boundary
+    throw error
+  } else if (status === 'idle') {
+    return 'Submit a pokemon'
+  } else if (status === 'pending') {
+    return <PokemonInfoFallback name={pokemonName} />
+  } else if (status === 'resolved') {
+    return <PokemonDataView pokemon={pokemon} />
+  }
+
+  throw new Error('This should be impossible!')
+}
+
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      There was an error:{' '}
+      <pre style={{whiteSpace: 'normal'}}>{error.message}</pre>
+      <img src={sadFace} alt="sad face" />
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  )
+}
+
+function App() {
+  const [pokemonName, setPokemonName] = React.useState('')
+
+  function handleSubmit(newPokemonName) {
+    setPokemonName(newPokemonName)
+  }
+
+  function handleReset() {
+    setPokemonName('')
+  }
+
+  return (
+    <div className="pokemon-info-app">
+      <PokemonForm pokemonName={pokemonName} onSubmit={handleSubmit} />
+      <hr />
+      <div className="pokemon-info">
+        <ErrorBoundary
+          resetKeys={[pokemonName]}
+          FallbackComponent={ErrorFallback}
+          onReset={handleReset}
+        >
           <PokemonInfo pokemonName={pokemonName} />
         </ErrorBoundary>
       </div>
